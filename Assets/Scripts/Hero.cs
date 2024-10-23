@@ -6,43 +6,105 @@ using UnityEngine;
 public class Hero : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
-    private SpriteRenderer _sprite;
-    private bool _faceRight = true;
-    private Animator _anim;
-   // private bool _isRunning = false;
-    private void Awake()
+    [SerializeField] private float _jumpForce = 300f;
+    [SerializeField] private float DashSpeed = 25f; // Скорость рывка
+    [SerializeField] private float DashDuration = 0.2f; // Длительность рывка
+    [SerializeField] private float DashCooldown = 1f; // Кулдаун между рывками
+
+
+    private bool _isGrounded;
+    private Rigidbody2D _rb;
+    private bool _jumpRequest;
+    private BoxCollider2D _collider;
+    private int _jumpBuffer;
+    private bool _isDashing = false;
+    private bool _canDash = true;
+
+
+    void Start()
     {
-        _sprite = GetComponentInChildren<SpriteRenderer>();
-        _anim = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) Run();
-        Reflect();
-        AllAnims();
-    }
-
-    private void Run()
-    {
-        Vector3 dir = transform.right * Input.GetAxis("Horizontal");
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, _speed * Time.deltaTime);
-        
-        
-    }
-    private void Reflect()
-    {
-        if (Input.GetAxis("Horizontal") > 0 && _faceRight || Input.GetAxis("Horizontal") < 0 && !_faceRight)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            transform.localScale *= new Vector2(-1, 1);
-            _faceRight = !_faceRight;
+            _jumpRequest = true;
+            StartCoroutine(JumpTimer());
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _isGrounded && !_isDashing)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+    void FixedUpdate()
+    {
+        GroundCheck();
+        if (!_isDashing)
+        {
+            MovementLogic();
+            JumpLogic();
+        }
+        
+    }
+
+    private void MovementLogic()
+    {
+        float moveInput = Input.GetAxisRaw("Horizontal");  
+        _rb.velocity = new Vector2(moveInput * _speed, _rb.velocity.y);
+
+
+    }
+
+    private void JumpLogic()
+    {
+        if ((_jumpRequest && _isGrounded) || (_jumpRequest && _jumpBuffer != 0))
+        {
+            _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
+            _jumpRequest = false;
+            _jumpBuffer--;
+        }
+        if (_isGrounded == true)
+        {
+            _jumpBuffer = 1;
         }
     }
 
-    private void AllAnims()
+    private void GroundCheck()
     {
-        if (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Horizontal") < 0) _anim.SetFloat("SpeedX", 1f);
-        else _anim.SetFloat("SpeedX", 0f);
+        Collider2D[] collider = Physics2D.OverlapBoxAll(new(transform.position.x + 0.1535808f, transform.position.y), new(_collider.size.x, 0.2f), 0f);
+        _isGrounded = collider.Length > 1;
+    }
+
+    private IEnumerator JumpTimer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _jumpRequest = false;
+    }
+
+    private IEnumerator Dash()
+    {
+        _isDashing = true;
+        _isGrounded = false;
+
+        float originalGravity = _rb.gravityScale; // Сохраняем оригинальную гравитацию
+        _rb.gravityScale = 0f; // Отключаем гравитацию на время рывка
+
+
+        // Выполняем рывок в сторону движения персонажа
+        _rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * DashSpeed, Input.GetAxisRaw("Vertical") * DashSpeed * 0.7f);
+        
+
+        // Ждем завершения рывка
+        yield return new WaitForSeconds(DashDuration);
+
+        _rb.gravityScale = originalGravity; // Возвращаем гравитацию
+        _isDashing = false;
+
+        // Ждем кулдаун перед возможностью следующего рывка
+        yield return new WaitForSeconds(DashCooldown);
+        _isGrounded = true;
     }
 }
