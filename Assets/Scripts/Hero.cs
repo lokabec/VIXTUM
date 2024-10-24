@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hero : MonoBehaviour
@@ -56,7 +57,8 @@ public class Hero : MonoBehaviour
 
     private void MovementLogic()
     {
-        float moveInput = Input.GetAxisRaw("Horizontal");  
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        Debug.Log(moveInput);
         _rb.velocity = new Vector2(moveInput * _speed, _rb.velocity.y);
     }
 
