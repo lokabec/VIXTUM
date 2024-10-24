@@ -1546,7 +1546,8 @@ MonoBehaviour:
   _speed: 10
   _jumpForce: 18
   _dashForce: 50
-  DashDuration: 0.2
+  _dashDuration: 0.2
+  _camera: {fileID: 792358682}
 --- !u!4 &2029564173
 Transform:
   m_ObjectHideFlags: 0

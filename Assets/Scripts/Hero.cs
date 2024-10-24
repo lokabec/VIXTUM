@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Cinemachine;
 
 public class Hero : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpForce = 300f;
     [SerializeField] private float _dashForce = 25f; // Скорость рывка
-    [SerializeField] private float DashDuration = 0.2f; // Длительность рывка
-   // [SerializeField] private float DashCooldown = 1f; // Кулдаун между рывками
+    [SerializeField] private float _dashDuration = 0.2f; // Длительность рывка
+    [SerializeField] private CinemachineVirtualCamera _camera;
 
 
     private bool _isGrounded;
@@ -102,7 +103,7 @@ public class Hero : MonoBehaviour
     }
     private IEnumerator DashTimer(float originalGravity)
     {
-        yield return new WaitForSeconds(DashDuration);
+        yield return new WaitForSeconds(_dashDuration);
         _isDashing = false;
         _rb.gravityScale = originalGravity;
         _rb.velocity = Vector2.zero;
