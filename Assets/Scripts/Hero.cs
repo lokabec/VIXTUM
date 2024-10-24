@@ -7,9 +7,9 @@ public class Hero : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpForce = 300f;
-    [SerializeField] private float DashSpeed = 25f; // Скорость рывка
+    [SerializeField] private float _dashForce = 25f; // Скорость рывка
     [SerializeField] private float DashDuration = 0.2f; // Длительность рывка
-    [SerializeField] private float DashCooldown = 1f; // Кулдаун между рывками
+   // [SerializeField] private float DashCooldown = 1f; // Кулдаун между рывками
 
 
     private bool _isGrounded;
@@ -17,8 +17,9 @@ public class Hero : MonoBehaviour
     private bool _jumpRequest;
     private BoxCollider2D _collider;
     private int _jumpBuffer;
-    private bool _isDashing = false;
-    private bool _canDash = true;
+    private int _dashBuffer = 1;
+    private bool _isDashing;
+    //private bool _canDash = true;
 
 
     void Start()
@@ -34,48 +35,62 @@ public class Hero : MonoBehaviour
             _jumpRequest = true;
             StartCoroutine(JumpTimer());
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _isGrounded && !_isDashing)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _dashBuffer > 0)
         {
-            StartCoroutine(Dash());
+            _isDashing = true;
         }
     }
     void FixedUpdate()
     {
         GroundCheck();
-        if (!_isDashing)
+        if (_isDashing) 
+        {
+            DashLogic(); 
+        }
+        else
         {
             MovementLogic();
             JumpLogic();
         }
-        
     }
 
     private void MovementLogic()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");  
         _rb.velocity = new Vector2(moveInput * _speed, _rb.velocity.y);
-
-
     }
 
     private void JumpLogic()
     {
-        if ((_jumpRequest && _isGrounded) || (_jumpRequest && _jumpBuffer != 0))
+        if ((_jumpRequest && _isGrounded) || (_jumpRequest && _jumpBuffer > 0))
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
             _jumpRequest = false;
             _jumpBuffer--;
         }
-        if (_isGrounded == true)
+        if (_isGrounded) _jumpBuffer = 1;
+    }
+
+    private void DashLogic()
+    {
+        
+        float originalGravity = _rb.gravityScale;
+        Vector2 inputDirection = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        if (inputDirection != Vector2.zero)
         {
-            _jumpBuffer = 1;
+            _rb.velocity = inputDirection.normalized * _dashForce;
         }
+        _dashBuffer--;
+        StartCoroutine(DashTimer(originalGravity));
+        
     }
 
     private void GroundCheck()
     {
         Collider2D[] collider = Physics2D.OverlapBoxAll(new(transform.position.x + 0.1535808f, transform.position.y), new(_collider.size.x, 0.2f), 0f);
         _isGrounded = collider.Length > 1;
+
+        if (_isGrounded) _dashBuffer = 1;
     }
 
     private IEnumerator JumpTimer()
@@ -83,28 +98,13 @@ public class Hero : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         _jumpRequest = false;
     }
-
-    private IEnumerator Dash()
+    private IEnumerator DashTimer(float originalGravity)
     {
-        _isDashing = true;
-        _isGrounded = false;
-
-        float originalGravity = _rb.gravityScale; // Сохраняем оригинальную гравитацию
-        _rb.gravityScale = 0f; // Отключаем гравитацию на время рывка
-
-
-        // Выполняем рывок в сторону движения персонажа
-        _rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * DashSpeed, Input.GetAxisRaw("Vertical") * DashSpeed * 0.7f);
-        
-
-        // Ждем завершения рывка
         yield return new WaitForSeconds(DashDuration);
-
-        _rb.gravityScale = originalGravity; // Возвращаем гравитацию
         _isDashing = false;
-
-        // Ждем кулдаун перед возможностью следующего рывка
-        yield return new WaitForSeconds(DashCooldown);
-        _isGrounded = true;
+        _rb.gravityScale = originalGravity;
+        _rb.velocity = Vector2.zero;
     }
+
+   
 }
