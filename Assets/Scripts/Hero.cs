@@ -21,7 +21,6 @@ public class Hero : MonoBehaviour
     private int _jumpBuffer;
     private int _dashBuffer = 1;
     private bool _isDashing;
-    //private bool _canDash = true;
 
 
     void Start()
@@ -59,7 +58,6 @@ public class Hero : MonoBehaviour
     private void MovementLogic()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
-        Debug.Log(moveInput);
         _rb.velocity = new Vector2(moveInput * _speed, _rb.velocity.y);
     }
 

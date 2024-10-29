@@ -1474,11 +1474,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2029564173}
-  - component: {fileID: 2029564172}
   - component: {fileID: 2029564171}
   - component: {fileID: 2029564174}
   - component: {fileID: 2029564175}
   - component: {fileID: 2029564176}
+  - component: {fileID: 2029564172}
+  - component: {fileID: 2029564177}
   m_Layer: 6
   m_Name: Hero
   m_TagString: Untagged
@@ -1547,7 +1548,7 @@ MonoBehaviour:
   _jumpForce: 18
   _dashForce: 50
   _dashDuration: 0.2
-  _camera: {fileID: 792358682}
+  _camera: {fileID: 792358683}
 --- !u!4 &2029564173
 Transform:
   m_ObjectHideFlags: 0
@@ -1664,6 +1665,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &2029564177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029564170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b40aa451e21fee4ebc9c14471bc5259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _combos:
+  - comboName: "\u044F \u0435\u0431\u0430\u043B \u0432\u0430\u0448 \u0440\u043E\u0442"
+    keySequence: 430100004301000043010000
+    currentStep: 0
+  - comboName: "\u0432\u044B \u043C\u043E\u0439 \u0440\u043E\u0442 \u0435\u0431\u0430\u043B\u0438"
+    keySequence: 440100004401000044010000
+    currentStep: 0
+  - comboName: "\u044F \u0441\u043E\u0441\u0430\u043B \u043C\u0435\u043D\u044F \u0435\u0431\u0430\u043B\u0438 "
+    keySequence: 43010000430100004301000043010000
+    currentStep: 0
+  _inputTimeWindow: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
