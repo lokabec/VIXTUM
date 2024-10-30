@@ -1678,15 +1678,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _combos:
-  - comboName: "\u044F \u0435\u0431\u0430\u043B \u0432\u0430\u0448 \u0440\u043E\u0442"
+  - comboName: "\u041A\u043E\u043C\u0431\u043E 1"
     keySequence: 430100004301000043010000
-    currentStep: 0
-  - comboName: "\u0432\u044B \u043C\u043E\u0439 \u0440\u043E\u0442 \u0435\u0431\u0430\u043B\u0438"
+  - comboName: "\u041A\u043E\u043C\u0431\u043E 2"
     keySequence: 440100004401000044010000
-    currentStep: 0
-  - comboName: "\u044F \u0441\u043E\u0441\u0430\u043B \u043C\u0435\u043D\u044F \u0435\u0431\u0430\u043B\u0438 "
+  - comboName: "\u041A\u043E\u043C\u0431\u043E 3"
     keySequence: 43010000430100004301000043010000
-    currentStep: 0
+  - comboName: "\u041A\u043E\u043C\u0431\u043E 4"
+    keySequence: 43010000430100004301000044010000
+  - comboName: "\u041A\u043E\u043C\u0431\u043E 5"
+    keySequence: 440100004401000043010000
+  - comboName: "\u041A\u043E\u043C\u0431\u043E 6"
+    keySequence: 44010000440100004401000043010000
   _inputTimeWindow: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

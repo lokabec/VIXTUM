@@ -1,17 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class CombatSystem : MonoBehaviour
 {
     [SerializeField] private List<Combo> _combos;
-    [SerializeField] private float _inputTimeWindow = 0.5f; // Время между нажатиями
+    [SerializeField] private float _inputTimeWindow = 0.5f;
 
-
-    private readonly List<(KeyCode key, float time)> _inputHistory = new();
+    private readonly List<KeyCode> _inputHistory = new();
+    private readonly List<Combo> _currentCombos = new();
+    private Coroutine _executeComboTimer;
 
     private void Update()
     {
@@ -26,73 +30,54 @@ public class CombatSystem : MonoBehaviour
                 }
             }
         }
-
-        CleanupOldInputs();
     }
 
     private void RegisterInput(KeyCode key)
     {
-        _inputHistory.Add((key, Time.time));
+        _inputHistory.Add(key);
 
-        CheckCombos();
-    }
-
-    private void CleanupOldInputs()
-    {
-
-        for (int i = _inputHistory.Count - 1; i >= 0; i--)
+        if (_executeComboTimer != null)
         {
-            if(Time.time - _inputHistory[i].time > _inputTimeWindow)
-            {
-                _inputHistory.RemoveAt(i);
-            }
+            StopCoroutine(_executeComboTimer);
         }
+
+        _executeComboTimer = StartCoroutine(ComboExecutionTimer());
+        CheckCombos();
     }
 
     private void CheckCombos()
     {
-        Combo bestMuch = null;
-        int bestMatchLength = 0;
-
-        foreach (Combo combo in _combos) 
+        foreach (Combo combo in _combos)
         {
-            if (IsComboMach(combo))
+            if (combo.IsMatching(_inputHistory))
             {
-                if(combo.keySequence.Count > bestMatchLength)
-                {
-                    bestMuch = combo;
-                    bestMatchLength = combo.keySequence.Count;
-                }
+                Debug.Log($"Найдено совпадение с комбо: {combo.comboName}");
+               _currentCombos.Add(combo);
+               
             }
         }
+    }
 
-        if (bestMuch != null) 
+    private void ExecuteLongestCombo()
+    {
+        if (_currentCombos.Count == 0) 
         {
-            ExecuteCombo(bestMuch);
             _inputHistory.Clear();
-            
+            return;
         }
+
+        Combo longestCombo = _currentCombos
+       .OrderByDescending(o => o.keySequence.Count)
+       .First();
+        Debug.Log($"Выполняется комбо: {longestCombo.comboName}");
+        _currentCombos.Clear();
+        _inputHistory.Clear();
     }
 
-    private void ExecuteCombo(Combo combo)
+    private IEnumerator ComboExecutionTimer()
     {
-        Debug.Log($"Комбо {combo.comboName} выполнено!");
-    }
-
-    private bool IsComboMach(Combo combo)
-    {
-        if(_inputHistory.Count < combo.keySequence.Count) return false;
-
-        int startIndex = _inputHistory.Count - combo.keySequence.Count;
-
-        for (int i = 0; i < combo.keySequence.Count; i++)
-        {
-            if (_inputHistory[startIndex + i].key != combo.keySequence[i])
-            {
-                return false; 
-            }
-        }
-        return true;
+        yield return new WaitForSeconds(_inputTimeWindow);
+        ExecuteLongestCombo();
     }
 }
 
@@ -100,9 +85,23 @@ public class CombatSystem : MonoBehaviour
 public class Combo
 {
     public string comboName;
-    public List<KeyCode> keySequence; 
-    //public float maxInputTime; 
-   
+    public List<KeyCode> keySequence;
 
-    [HideInInspector] public int currentStep = 0;
+    public bool IsMatching(List<KeyCode> _inputHistory)
+    {
+        Debug.Log($"Длинна текущего списка: {_inputHistory.Count}");
+        int comboCounter = 0;
+
+        if (keySequence.Count == _inputHistory.Count)
+        {
+
+            for (int i = 0; i < keySequence.Count; i++)
+            {
+                if (_inputHistory[i] == keySequence[i]) comboCounter++;
+            }
+            if (keySequence.Count == comboCounter) return true;
+        }
+        return false;
+    }
 }
+
