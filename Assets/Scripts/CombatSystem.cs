@@ -16,32 +16,53 @@ public class CombatSystem : MonoBehaviour
     private readonly List<KeyCode> _inputHistory = new();
     private readonly List<Combo> _currentCombos = new();
     private Coroutine _executeComboTimer;
-
+    private Coroutine _clearHistoryTimer;
+    private Hero _hero;
+    private void Awake()
+    {
+        _hero = GetComponent<Hero>();
+    }
     private void Update()
     {
         if (Input.anyKeyDown)
         {
+            bool stopLoop = false;
             foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
             {
+                if (stopLoop) break;
                 if (Input.GetKeyDown(key))
                 {
-                    RegisterInput(key);
-                    break;
+                    switch (key)
+                    {
+                        case KeyCode.Mouse0:
+                        case KeyCode.Mouse1:
+                        case KeyCode.LeftShift:
+                            RegisterInput(key);
+                            stopLoop = true;
+                            break;
+
+
+                    }
                 }
+                
+               
             }
         }
     }
 
     private void RegisterInput(KeyCode key)
     {
-        _inputHistory.Add(key);
 
-        if (_executeComboTimer != null)
+        _inputHistory.Add(key);
+        
+        
+        if (_clearHistoryTimer != null)
         {
-            StopCoroutine(_executeComboTimer);
+            StopCoroutine(_clearHistoryTimer);
         }
 
-        _executeComboTimer = StartCoroutine(ComboExecutionTimer());
+        _clearHistoryTimer = StartCoroutine(ClearHistory());
+
         CheckCombos();
     }
 
@@ -53,18 +74,21 @@ public class CombatSystem : MonoBehaviour
             {
                 Debug.Log($"Найдено совпадение с комбо: {combo.comboName}");
                _currentCombos.Add(combo);
-               
+                if (_executeComboTimer != null)
+                {
+                    StopCoroutine(_executeComboTimer);
+                }
+
+                _executeComboTimer = StartCoroutine(ComboExecutionTimer());
+
             }
         }
     }
 
     private void ExecuteLongestCombo()
     {
-        if (_currentCombos.Count == 0) 
-        {
-            _inputHistory.Clear();
-            return;
-        }
+        if (_currentCombos.Count == 0) return;
+        
 
         Combo longestCombo = _currentCombos
        .OrderByDescending(o => o.keySequence.Count)
@@ -78,6 +102,11 @@ public class CombatSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(_inputTimeWindow);
         ExecuteLongestCombo();
+    }
+    private IEnumerator ClearHistory()
+    {
+        yield return new WaitForSeconds(_inputTimeWindow);
+        _inputHistory.Clear();
     }
 }
 

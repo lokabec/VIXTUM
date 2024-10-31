@@ -20,7 +20,7 @@ public class Hero : MonoBehaviour
     private BoxCollider2D _collider;
     private int _jumpBuffer;
     private int _dashBuffer = 1;
-    private bool _isDashing;
+    [HideInInspector] public bool _isDashing;
 
 
     void Start()

@@ -1549,6 +1549,7 @@ MonoBehaviour:
   _dashForce: 50
   _dashDuration: 0.2
   _camera: {fileID: 792358683}
+  _isDashing: 0
 --- !u!4 &2029564173
 Transform:
   m_ObjectHideFlags: 0
@@ -1690,6 +1691,8 @@ MonoBehaviour:
     keySequence: 440100004401000043010000
   - comboName: "\u041A\u043E\u043C\u0431\u043E 6"
     keySequence: 44010000440100004401000043010000
+  - comboName: "\u041A\u043E\u043C\u0431\u043E 7"
+    keySequence: 430100003001000043010000
   _inputTimeWindow: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
