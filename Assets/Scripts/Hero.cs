@@ -59,6 +59,7 @@ public class Hero : MonoBehaviour
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
         _rb.velocity = new Vector2(moveInput * _speed, _rb.velocity.y);
+        if(moveInput != 0) transform.localScale = new(moveInput * (-1),1);
     }
 
     private void JumpLogic()

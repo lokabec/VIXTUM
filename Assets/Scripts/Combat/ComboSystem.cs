@@ -2,13 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting;
 using UnityEngine;
 
-
-public class CombatSystem : MonoBehaviour
+public class ComboSystem : MonoBehaviour
 {
     [SerializeField] private List<Combo> _combos;
     [SerializeField] private float _inputTimeWindow = 0.5f;
@@ -44,8 +40,6 @@ public class CombatSystem : MonoBehaviour
 
                     }
                 }
-                
-               
             }
         }
     }
@@ -54,8 +48,11 @@ public class CombatSystem : MonoBehaviour
     {
 
         _inputHistory.Add(key);
-        
-        
+
+        if (_inputHistory.Count > 6)
+        {
+            _inputHistory.Clear();
+        }
         if (_clearHistoryTimer != null)
         {
             StopCoroutine(_clearHistoryTimer);
@@ -73,7 +70,7 @@ public class CombatSystem : MonoBehaviour
             if (combo.IsMatching(_inputHistory))
             {
                 Debug.Log($"Найдено совпадение с комбо: {combo.comboName}");
-               _currentCombos.Add(combo);
+                _currentCombos.Add(combo);
                 if (_executeComboTimer != null)
                 {
                     StopCoroutine(_executeComboTimer);
@@ -88,7 +85,7 @@ public class CombatSystem : MonoBehaviour
     private void ExecuteLongestCombo()
     {
         if (_currentCombos.Count == 0) return;
-        
+
 
         Combo longestCombo = _currentCombos
        .OrderByDescending(o => o.keySequence.Count)
@@ -118,12 +115,11 @@ public class Combo
 
     public bool IsMatching(List<KeyCode> _inputHistory)
     {
-        Debug.Log($"Длинна текущего списка: {_inputHistory.Count}");
+        //Debug.Log($"Длинна текущего списка: {_inputHistory.Count}");
         int comboCounter = 0;
 
         if (keySequence.Count == _inputHistory.Count)
         {
-
             for (int i = 0; i < keySequence.Count; i++)
             {
                 if (_inputHistory[i] == keySequence[i]) comboCounter++;
@@ -133,4 +129,3 @@ public class Combo
         return false;
     }
 }
-
