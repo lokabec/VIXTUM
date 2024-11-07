@@ -4,24 +4,32 @@ using UnityEngine;
 
 public class RangeAttack : Attack
 {
-    private void Awake()
+    Vector2 origin;
+    Vector2 direction;
+    private void Start()
     {
         attackType = AttackType.Range;
         range = Mathf.Infinity;
     }
     public override void Execute()
     {
-        Vector2 direction;
-        Vector2 origin = attackPoint.transform.position;
-        if (transform.localScale.x > 0) direction = Vector2.left;
-        else direction = Vector2.right;
-         
-        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, range, enemyLayer);
+        
+        
+        
+
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction - origin, range, enemyLayer);
 
         if (hitInfo.collider != null)
         {
             //Debug.Log(hitInfo.collider.gameObject.name);
             hitInfo.collider.GetComponent<Enemy>().TakeDamage();
         }
+    }
+    private void Update()
+    {
+        origin = attackPoint.transform.position;
+
+        direction = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Debug.DrawRay(origin, direction-origin, Color.red);
     }
 }
