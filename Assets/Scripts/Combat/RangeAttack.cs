@@ -13,15 +13,10 @@ public class RangeAttack : Attack
     }
     public override void Execute()
     {
-        
-        
-        
-
         RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction - origin, range, enemyLayer);
 
         if (hitInfo.collider != null)
         {
-            //Debug.Log(hitInfo.collider.gameObject.name);
             hitInfo.collider.GetComponent<Enemy>().TakeDamage();
         }
     }

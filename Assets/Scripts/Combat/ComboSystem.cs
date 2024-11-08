@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ComboSystem : MonoBehaviour
 {
@@ -87,9 +88,7 @@ public class ComboSystem : MonoBehaviour
         if (_currentCombos.Count == 0) return;
 
 
-        Combo longestCombo = _currentCombos
-       .OrderByDescending(o => o.keySequence.Count)
-       .First();
+        Combo longestCombo = _currentCombos.OrderByDescending(o => o.keySequence.Count).First();
         Debug.Log($"Выполняется комбо: {longestCombo.comboName}");
         _currentCombos.Clear();
         _inputHistory.Clear();
@@ -112,10 +111,10 @@ public class Combo
 {
     public string comboName;
     public List<KeyCode> keySequence;
+    public int score;
 
     public bool IsMatching(List<KeyCode> _inputHistory)
     {
-        //Debug.Log($"Длинна текущего списка: {_inputHistory.Count}");
         int comboCounter = 0;
 
         if (keySequence.Count == _inputHistory.Count)

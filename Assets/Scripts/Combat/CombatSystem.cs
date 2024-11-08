@@ -11,31 +11,40 @@ using static UnityEngine.UI.Image;
 
 public class CombatSystem : MonoBehaviour
 {
-    [SerializeField] private MeleeAttack meleeAttack;
-    [SerializeField] private RangeAttack rangeAttack;
+    [SerializeField] private MeleeAttack _meleeAttack;
+    [SerializeField] private RangeAttack _rangeAttack;
+    [SerializeField] private int _score;
+    [SerializeField] private Hero _hero;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (!meleeAttack.IsOnCooldown)
-            {
-                meleeAttack.Execute();
-            }
+            ExecuteAttack(_meleeAttack);
         }
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if (!rangeAttack.IsOnCooldown)
-            {
-                rangeAttack.Execute();
-            }
+            ExecuteAttack(_rangeAttack);
+        }
+    }
+
+    private void ExecuteAttack(Attack attack)
+    {
+        if (!attack.IsOnCooldown)
+        {
+            attack.Execute();
+            //if (!_hero._isGrounded)
+            //{
+
+            //    StartCoroutine(_hero.LockupInAirWhileAttack(attack));
+            //}
         }
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(meleeAttack.attackPoint.transform.position, meleeAttack.range);
+        Gizmos.DrawWireSphere(_meleeAttack.attackPoint.transform.position, _meleeAttack.range);
     }
 }
 

@@ -6,7 +6,7 @@ public abstract class Attack : MonoBehaviour
 {
     [SerializeField] protected int points;
     [SerializeField] protected float damage;
-    [SerializeField] protected float cooldown;
+    public float cooldown;
     [SerializeField] protected LayerMask enemyLayer;
     public GameObject attackPoint;
     public float range;
