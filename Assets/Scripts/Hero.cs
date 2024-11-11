@@ -37,9 +37,9 @@ public class Hero : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && _dash.dashBuffer > 0)
         {
             _dash.RequestDash();
-            
+            FindObjectOfType<ComboSystem>().RegisterAttack(_dash.actionType);
+
         }
-        Debug.Log($"Буфер: {_dash.dashBuffer}, Гравитация: {_rb.gravityScale}, Состояние рывка: {_dash.isDashing}");
     }
 
     private void FixedUpdate()
@@ -72,122 +72,4 @@ public class Hero : MonoBehaviour
         _rb.gravityScale = originalGravity;
         _rb.velocity = Vector2.zero;
     }
-
-    //[SerializeField] private float _speed = 10f;
-    //[SerializeField] private float _jumpForce = 300f;
-    //[SerializeField] private float _dashForce = 25f; // Скорость рывка
-    //[SerializeField] private float _dashDuration = 0.2f; // Длительность рывка
-    //[SerializeField] private CinemachineVirtualCamera _camera;
-
-
-    //public bool _isGrounded;
-    //private Rigidbody2D _rb;
-    //private bool _jumpRequest;
-    //private BoxCollider2D _collider;
-    //private int _jumpBuffer;
-    //private int _dashBuffer = 1;
-    //[HideInInspector] public bool _isDashing;
-
-
-    //void Start()
-    //{
-    //    _rb = GetComponent<Rigidbody2D>();
-    //    _collider = GetComponent<BoxCollider2D>();
-    //}
-
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Space))
-    //    {
-    //        _jumpRequest = true;
-    //        StartCoroutine(JumpTimer());
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.LeftShift) && _dashBuffer > 0)
-    //    {
-    //        _isDashing = true;
-    //    }
-    //}
-    //void FixedUpdate()
-    //{
-    //    GroundCheck();
-    //    if (_isDashing) 
-    //    {
-    //        DashLogic(); 
-    //    }
-    //    else
-    //    {
-    //        MovementLogic();
-    //        JumpLogic();
-    //    }
-    //}
-
-    //private void MovementLogic()
-    //{
-    //    float moveInput = Input.GetAxisRaw("Horizontal");
-    //    _rb.velocity = new Vector2(moveInput * _speed, _rb.velocity.y);
-    //    if(moveInput != 0) transform.localScale = new(moveInput * (-1),1);
-    //}
-
-    //private void JumpLogic()
-    //{
-    //    if ((_jumpRequest && _isGrounded) || (_jumpRequest && _jumpBuffer > 0))
-    //    {
-    //        _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
-    //        _jumpRequest = false;
-    //        _jumpBuffer--;
-    //    }
-    //    if (_isGrounded) _jumpBuffer = 1;
-    //}
-
-    //private void DashLogic()
-    //{
-
-    //    float originalGravity = _rb.gravityScale;
-    //    Vector2 inputDirection = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-    //    if (inputDirection != Vector2.zero)
-    //    {
-    //        _rb.velocity = inputDirection.normalized * _dashForce;
-    //    }
-    //    _dashBuffer--;
-    //    StartCoroutine(DashTimer(originalGravity));
-
-    //}
-
-    //private void GroundCheck()
-    //{
-    //    Collider2D[] collider = Physics2D.OverlapBoxAll(new(transform.position.x + 0.1535808f, transform.position.y), new(_collider.size.x, 0.2f), 0f);
-    //    _isGrounded = collider.Length > 1;
-
-    //    if (_isGrounded) _dashBuffer = 1;
-    //}
-
-    //private IEnumerator JumpTimer()
-    //{
-    //    yield return new WaitForSeconds(0.1f);
-    //    _jumpRequest = false;
-    //}
-    //private IEnumerator DashTimer(float originalGravity)
-    //{
-    //    yield return new WaitForSeconds(_dashDuration);
-    //    _isDashing = false;
-    //    _rb.gravityScale = originalGravity;
-    //    _rb.velocity = Vector2.zero;
-    //}
-
-    //internal IEnumerator LockupInAirWhileAttack(Attack attack)
-    //{
-
-    //    float originalGravivty = _rb.gravityScale;
-    //    Vector2 originalVelocity = _rb.velocity;
-
-    //    _rb.velocity = Vector2.zero;
-    //    _rb.gravityScale = 0f;
-
-    //    yield return new WaitForSeconds(attack.cooldown);
-    //    Debug.Log("Работает");
-
-    //    _rb.velocity = originalVelocity;
-    //     _rb.gravityScale = originalGravivty;
-
-    //}
 }

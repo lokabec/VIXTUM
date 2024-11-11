@@ -10,6 +10,7 @@ public class Jump
     public bool jumpRequest;
     private int _jumpBuffer = 1;
     public bool isGrounded;
+    public ActionType actionType = ActionType.Jump;
 
     public Jump(float jumpForce, Rigidbody2D rb)
     {

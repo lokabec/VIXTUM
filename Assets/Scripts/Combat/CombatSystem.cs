@@ -13,18 +13,30 @@ public class CombatSystem : MonoBehaviour
 {
     [SerializeField] private MeleeAttack _meleeAttack;
     [SerializeField] private RangeAttack _rangeAttack;
-    [SerializeField] private int _score;
+    [SerializeField] private ComboSystem _comboSystem;
+    private int _score;
     [SerializeField] private Hero _hero;
-
+    
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.anyKeyDown)
         {
-            ExecuteAttack(_meleeAttack);
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            ExecuteAttack(_rangeAttack);
+            KeyCode[] allowedKeys = { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.LeftShift };
+            foreach (KeyCode key in allowedKeys)
+            {
+                if (Input.GetKeyDown(key))
+                {
+                    switch (key)
+                    {
+                        case KeyCode.Mouse0:
+                            ExecuteAttack(_meleeAttack);
+                            break;
+                        case KeyCode.Mouse1:
+                            ExecuteAttack(_rangeAttack);
+                            break;
+                    }
+                }
+            }
         }
     }
 

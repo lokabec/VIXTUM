@@ -10,6 +10,7 @@ public class Dash
     public bool isDashing;
     public int dashBuffer = 1;
     public float originalGravity;
+    public ActionType actionType = ActionType.Dash;
 
     public Dash(float dashForce, float dashDuration, Rigidbody2D rb)
     {
@@ -33,4 +34,5 @@ public class Dash
         }
         dashBuffer--;
     }
+
 }

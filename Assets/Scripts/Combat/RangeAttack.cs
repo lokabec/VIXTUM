@@ -8,11 +8,12 @@ public class RangeAttack : Attack
     Vector2 direction;
     private void Start()
     {
-        attackType = AttackType.Range;
+        actionType = ActionType.RangeAttack;
         range = Mathf.Infinity;
     }
     public override void Execute()
     {
+        base.Execute();
         RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction - origin, range, enemyLayer);
 
         if (hitInfo.collider != null)

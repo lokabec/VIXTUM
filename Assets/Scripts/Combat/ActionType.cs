@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AttackType
+public enum ActionType
 {
-    Melee,
-    Range,
+    MeleeAttack,
+    RangeAttack,
+    Dash,
+    Jump,
+
 }

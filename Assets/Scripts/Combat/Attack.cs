@@ -10,11 +10,14 @@ public abstract class Attack : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayer;
     public GameObject attackPoint;
     public float range;
-    [SerializeField] protected AttackType attackType;
+    [SerializeField] protected ActionType actionType;
 
     public bool IsOnCooldown { get; private set; }
 
-    public abstract void Execute();
+    public virtual void Execute()
+    {
+        FindObjectOfType<ComboSystem>().RegisterAttack(actionType);
+    }
 
     protected virtual void Cancel()
     {
