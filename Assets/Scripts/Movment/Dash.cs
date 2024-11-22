@@ -30,7 +30,7 @@ public class Dash
         Vector2 inputDirection = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if (inputDirection != Vector2.zero)
         {
-            _rb.velocity = inputDirection.normalized * _dashForce;
+            _rb.linearVelocity = inputDirection.normalized * _dashForce;
         }
         dashBuffer--;
     }

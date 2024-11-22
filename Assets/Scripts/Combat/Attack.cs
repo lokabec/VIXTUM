@@ -14,6 +14,7 @@ public abstract class Attack : MonoBehaviour
 
     public bool IsOnCooldown { get; private set; }
 
+    [System.Obsolete]
     public virtual void Execute()
     {
         FindObjectOfType<ComboSystem>().RegisterAttack(actionType);

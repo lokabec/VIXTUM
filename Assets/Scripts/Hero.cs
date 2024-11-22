@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using Cinemachine;
+using Unity.Cinemachine;
 
 public class Hero : MonoBehaviour
 {
@@ -26,8 +26,10 @@ public class Hero : MonoBehaviour
         _dash = new Dash(_dashForce, _dashDuration , _rb);
     }
 
+    [Obsolete]
     private void Update()
     {
+        
         _movement.HandleInput();
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
@@ -70,6 +72,6 @@ public class Hero : MonoBehaviour
         yield return new WaitForSeconds(_dashDuration);
         _dash.isDashing = false;
         _rb.gravityScale = originalGravity;
-        _rb.velocity = Vector2.zero;
+        _rb.linearVelocity = Vector2.zero;
     }
 }

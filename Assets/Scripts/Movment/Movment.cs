@@ -23,7 +23,7 @@ public class Movement
     public void Move()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
-        _rb.velocity = new Vector2(moveInput * _speed, _rb.velocity.y);
+        _rb.linearVelocity = new Vector2(moveInput * _speed, _rb.linearVelocity.y);
     }
 }
 

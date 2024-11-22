@@ -27,7 +27,7 @@ public class Jump
     {
         if (jumpRequest && (isGrounded || _jumpBuffer > 0))
         {
-            _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, _jumpForce);
             jumpRequest = false;
             _jumpBuffer--;
         }
