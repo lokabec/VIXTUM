@@ -17,7 +17,6 @@ public class EnemyJump : Jump
             {
                 if (jumpRequest && (isGrounded || _jumpBuffer > 0))
                 {
-                    //_rb.AddForce(new Vector2((objectCollider.GetComponent<Transform>().position.x - _rb.transform.position.x), _jumpForce));
                     _rb.linearVelocity = new((objectCollider.GetComponent<Transform>().position.x - _rb.transform.position.x) * horizontalJumpMultiplier, _jumpForce);
                     jumpRequest = false;
                     _jumpBuffer--;

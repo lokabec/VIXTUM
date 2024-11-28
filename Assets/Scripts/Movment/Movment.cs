@@ -16,18 +16,15 @@ public class Movement
 
     public virtual void HandleInput(float moveInput)
     {
-
-        // Получаем мировые координаты мыши
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // Проверяем, находится ли мышь слева или справа от персонажа
         if (mousePosition.x < _rb.transform.position.x)
         {
-            _rb.transform.localScale = new Vector3(1, 1, 1); // Смотрит вправо
+            _rb.transform.localScale = new Vector3(1, 1, 1);
         }
         else if (mousePosition.x > _rb.transform.position.x)
         {
-            _rb.transform.localScale = new Vector3(-1, 1, 1); // Смотрит влево
+            _rb.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 
