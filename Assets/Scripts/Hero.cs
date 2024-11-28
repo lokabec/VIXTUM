@@ -30,7 +30,7 @@ public class Hero : MonoBehaviour
     private void Update()
     {
         
-        _movement.HandleInput();
+        _movement.HandleInput(Input.GetAxis("Horizontal"));
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             StartCoroutine(JumpTimer());
@@ -55,7 +55,7 @@ public class Hero : MonoBehaviour
         }
         else
         {
-            _movement.Move();
+            _movement.Move(Input.GetAxis("Horizontal"));
             _jump.JumpLogic();
         }
         

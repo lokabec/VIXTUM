@@ -13,16 +13,17 @@ public class Movement
         _rb = rb;
     }
 
-    public void HandleInput()
+    public virtual void HandleInput(float moveInput)
     {
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        if (moveInput != 0)
-            _rb.transform.localScale = new Vector3(moveInput * (-1), 1, 1);
+
+        if (moveInput > 0)
+            _rb.transform.localScale = new Vector3(Mathf.Ceil(moveInput) * (-1), 1, 1);
+        if(moveInput < 0)
+            _rb.transform.localScale = new Vector3(Mathf.Floor(moveInput) * (-1), 1, 1);
     }
 
-    public void Move()
+    public virtual void Move(float moveInput)
     {
-        float moveInput = Input.GetAxisRaw("Horizontal");
         _rb.linearVelocity = new Vector2(moveInput * _speed, _rb.linearVelocity.y);
     }
 }

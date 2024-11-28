@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Jump
 {
-    private float _jumpForce;
-    private Rigidbody2D _rb;
+    protected float _jumpForce;
+    protected Rigidbody2D _rb;
     public bool jumpRequest;
-    private int _jumpBuffer = 1;
+    protected int _jumpBuffer = 1;
     public bool isGrounded;
     public ActionType actionType = ActionType.Jump;
 
@@ -23,7 +23,7 @@ public class Jump
         jumpRequest = true;
     }
 
-    public void JumpLogic()
+    public virtual void JumpLogic()
     {
         if (jumpRequest && (isGrounded || _jumpBuffer > 0))
         {
