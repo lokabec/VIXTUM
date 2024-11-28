@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
+using static Unity.Cinemachine.IInputAxisOwner.AxisDescriptor;
 
 public class Enemy : Entity
 {
@@ -15,7 +18,7 @@ public class Enemy : Entity
     private EnemyMovement movement;
     private EnemyJump jump;
     private DetectObjects detectObjects;
-    private bool attackFlag = true;
+    private bool attackFlag = false;
 
     private void Start()
     {
@@ -28,12 +31,18 @@ public class Enemy : Entity
 
     private void Update()
     {
-        if (detectObjects.Detect().Count() > 0)
+        if (detectObjects.Detect(4, layer).Count() > 0)
         {
-            jump.targets = detectObjects.Detect();
+            jump.targets = detectObjects.Detect(4, layer);
             jump.RequestJump();
         }
-        if(attackFlag) StartCoroutine(CollisionCheck());
+        if(!attackFlag && detectObjects.DetectForAttack(1f, layer).Count() > 0)
+        {
+            attackFlag = true;
+            StartCoroutine(CollisionCheck());
+            
+        }
+        
     }
 
     private void FixedUpdate()
@@ -60,27 +69,48 @@ public class Enemy : Entity
     //    }
     //}
 
+    //private void CollisionCheck()
+    //{
+    //    attackFlag = false;
+    //    float checkRadius = 0.5f;
+    //    Vector2 position = transform.position;
+    //    LayerMask targetLayer = LayerMask.GetMask("Player", "House");
+
+    //    //yield return new WaitForSeconds(1);
+
+    //    Collider2D[] hits = Physics2D.OverlapCircleAll(position, checkRadius, targetLayer);
+
+    //    foreach (var hit in hits)
+    //    {
+    //        if (hit.gameObject.TryGetComponent<Entity>(out var entity))
+    //        {
+    //            Debug.Log($"Объект {hit.gameObject.name} на слое {LayerMask.LayerToName(hit.gameObject.layer)}");
+    //            entity.TakeDamage();
+    //        }
+    //    }
+
+    //    attackFlag = true;
+    //}
     private IEnumerator CollisionCheck()
     {
-        attackFlag = false;
-        float checkRadius = 0.5f;
-        Vector2 position = transform.position;
-        LayerMask targetLayer = LayerMask.GetMask("Player", "House");
-
-        yield return new WaitForSeconds(1);
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(position, checkRadius, targetLayer);
-
-        foreach (var hit in hits)
+        while (detectObjects.DetectForAttack(1f, layer).Count() != 0)
         {
-            if (hit.gameObject.TryGetComponent<Entity>(out var entity))
+            foreach (Collider2D foudedTarget in detectObjects.DetectForAttack(1f, layer))
             {
-                Debug.Log($"Объект {hit.gameObject.name} на слое {LayerMask.LayerToName(hit.gameObject.layer)}");
-                entity.TakeDamage();
+                //Debug.Log($"Слой найденный: {foudedTarget.gameObject.layer}, Нужные слои {layer}");
+                if (foudedTarget.gameObject.layer == 6 || foudedTarget.gameObject.layer == 9)
+                {
+                    foudedTarget.GetComponent<Entity>().TakeDamage();
+                }
             }
+
+            yield return new WaitForSeconds(1);
         }
 
-        attackFlag = true;
+        attackFlag = false;
+        
+
+
     }
 
 }
