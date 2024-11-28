@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Cinemachine;
 
-public class Hero : MonoBehaviour
+public class Hero : Entity
 {
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpForce = 300f;
@@ -24,6 +24,7 @@ public class Hero : MonoBehaviour
         _movement = new Movement(_speed, _rb);
         _jump = new Jump(_jumpForce, _rb);
         _dash = new Dash(_dashForce, _dashDuration , _rb);
+        Health = 25;
     }
 
     [Obsolete]

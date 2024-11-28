@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Movement
 {
@@ -16,10 +17,18 @@ public class Movement
     public virtual void HandleInput(float moveInput)
     {
 
-        if (moveInput > 0)
-            _rb.transform.localScale = new Vector3(Mathf.Ceil(moveInput) * (-1), 1, 1);
-        if(moveInput < 0)
-            _rb.transform.localScale = new Vector3(Mathf.Floor(moveInput) * (-1), 1, 1);
+        // Получаем мировые координаты мыши
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // Проверяем, находится ли мышь слева или справа от персонажа
+        if (mousePosition.x < _rb.transform.position.x)
+        {
+            _rb.transform.localScale = new Vector3(1, 1, 1); // Смотрит вправо
+        }
+        else if (mousePosition.x > _rb.transform.position.x)
+        {
+            _rb.transform.localScale = new Vector3(-1, 1, 1); // Смотрит влево
+        }
     }
 
     public virtual void Move(float moveInput)
