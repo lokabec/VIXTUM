@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Entity : MonoBehaviour
 {
-    protected int Health = 100;
+    public int Health = 100;
     
     public void TakeDamage()
     {
@@ -14,6 +15,10 @@ public class Entity : MonoBehaviour
 
     private void Die()
     {
+        if(name == "Hero" || name == "House")
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
         Destroy(gameObject);
     }
 }

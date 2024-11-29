@@ -44,10 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d5a36ed419bb846a65383dcea8451c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 4
-  layer:
-    serializedVersion: 2
-    m_Bits: 576
 --- !u!1 &1843044410503124083
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7963135a6122c0d419b101607de81763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detectRange: 5
   layer:
     serializedVersion: 2
     m_Bits: 576

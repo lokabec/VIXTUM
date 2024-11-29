@@ -43,6 +43,10 @@ public class Hero : Entity
             FindObjectOfType<ComboSystem>().RegisterAttack(_dash.actionType);
 
         }
+        if(transform.position.y <= -40)
+        {
+            transform.position = new(0, 0, 0);
+        }
     }
 
     private void FixedUpdate()

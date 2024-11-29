@@ -9,7 +9,7 @@ using static Unity.Cinemachine.IInputAxisOwner.AxisDescriptor;
 
 public class Enemy : Entity
 {
-    //[SerializeField] private float range = 3f;
+    [SerializeField] private float detectRange = 3f;
     [SerializeField] private LayerMask layer;
     [SerializeField] private Transform target;
     [SerializeField] private float speed = 10f;
@@ -31,9 +31,9 @@ public class Enemy : Entity
 
     private void Update()
     {
-        if (detectObjects.Detect(4, layer).Count() > 0)
+        if (detectObjects.Detect(detectRange, layer).Count() > 0)
         {
-            jump.targets = detectObjects.Detect(4, layer);
+            jump.targets = detectObjects.Detect(detectRange, layer);
             jump.RequestJump();
         }
         if(!attackFlag && detectObjects.DetectForAttack(1f, layer).Count() > 0)
