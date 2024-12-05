@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Dash
 {
-    private float _dashForce;
+    protected float _dashForce;
     private float _dashDuration;
-    private Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
     public bool isDashing;
     public int dashBuffer = 1;
     public float originalGravity;
@@ -24,7 +24,7 @@ public class Dash
         isDashing = true;
     }
 
-    public void DashLogic()
+    public virtual void DashLogic()
     {
         originalGravity = _rb.gravityScale;
         Vector2 inputDirection = new(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));

@@ -141,10 +141,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8763358924297402726}
   - component: {fileID: 3580374769625423324}
-  - component: {fileID: 3956065598601768640}
   - component: {fileID: 5401324445495539514}
+  - component: {fileID: 4271377828009028551}
   m_Layer: 7
-  m_Name: EnemyPref
+  m_Name: WalkingEnemyPref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,25 +213,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3956065598601768640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2006469917987911856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7963135a6122c0d419b101607de81763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectRange: 5
-  layer:
-    serializedVersion: 2
-    m_Bits: 576
-  target: {fileID: 7366122863239784941, guid: 0b1006a78cb352642a40e6f06def19f0, type: 3}
-  speed: 0.35
-  jumpForce: 6
 --- !u!50 &5401324445495539514
 Rigidbody2D:
   serializedVersion: 5
@@ -259,3 +240,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4271377828009028551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006469917987911856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2781074942037854292159159e367ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 3
+  detectRange: 5
+  layer:
+    serializedVersion: 2
+    m_Bits: 576
+  target: {fileID: 7366122863239784941, guid: 0b1006a78cb352642a40e6f06def19f0, type: 3}
+  speed: 0.35
+  jumpForce: 6

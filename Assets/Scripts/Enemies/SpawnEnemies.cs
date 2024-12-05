@@ -1,11 +1,12 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
     private Transform spawnPoint;
     private Coroutine spawn;
-    [SerializeField] private GameObject Enemy;
+    [SerializeField] private GameObject[] Enemy;
     [SerializeField] private int spawnTime = 2;
     void Start()
     {
@@ -17,7 +18,7 @@ public class SpawnEnemies : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            spawn = StartCoroutine("SpawnTimer");
+            spawn = StartCoroutine(nameof(SpawnTimer));
         }
         if (spawn != null && Input.GetKeyDown(KeyCode.T))
         {
@@ -29,10 +30,8 @@ public class SpawnEnemies : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Спавним врага");
             yield return new WaitForSeconds(spawnTime);
-            Instantiate(Enemy, new Vector3(spawnPoint.position.x, spawnPoint.position.y, 0f), Quaternion.identity);
-            
+            Instantiate(Enemy[Random.Range(0, Enemy.Count())], new Vector3(spawnPoint.position.x, spawnPoint.position.y, 0f), Quaternion.identity);
         }
         
 
