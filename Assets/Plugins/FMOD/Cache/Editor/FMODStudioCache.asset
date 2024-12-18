@@ -1,33 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5330542971715987745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/BackgroundMusic
-  m_EditorClassIdentifier: 
-  Path: event:/BackgroundMusic
-  Guid:
-    Data1: -1309725752
-    Data2: 1220312617
-    Data3: -1416417859
-    Data4: -125767936
-  Banks:
-  - {fileID: 7683515919579237347}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 8321289370426785262}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 67375
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,14 +16,66 @@ MonoBehaviour:
   - {fileID: 6342369202807966460}
   - {fileID: 7683515919579237347}
   EditorEvents:
-  - {fileID: -5330542971715987745}
+  - {fileID: 6136824235289202796}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7683515919579237347}
   StringsBanks:
   - {fileID: 6342369202807966460}
-  cacheTime: 638679207585218871
+  cacheTime: 638696400407827424
   cacheVersion: 131621
+--- !u!114 &2929334905638752579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Track 1/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2003512380
+    data2: 1664712984
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &6136824235289202796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Track 1
+  m_EditorClassIdentifier: 
+  Path: event:/Track 1
+  Guid:
+    Data1: -1576886606
+    Data2: 1090226924
+    Data3: 1377475507
+    Data4: 1431564421
+  Banks:
+  - {fileID: 7683515919579237347}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 2929334905638752579}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 514056
 --- !u!114 &6342369202807966460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,10 +91,10 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638679207585218871
+  lastModified: 638696400407827424
   FileSizes:
   - Name: 
-    Value: 814
+    Value: 810
   Exists: 1
 --- !u!114 &7683515919579237347
 MonoBehaviour:
@@ -87,30 +111,6 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 638679207585193817
+  lastModified: 638696400407807429
   FileSizes: []
-  Exists: 1
---- !u!114 &8321289370426785262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/BackgroundMusic/AddFront
-  m_EditorClassIdentifier: 
-  Name: AddFront
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 4194052379
-    data2: 1605658541
-  Type: 0
-  IsGlobal: 0
-  Labels: []
   Exists: 1

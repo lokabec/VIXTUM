@@ -6,7 +6,7 @@ public static class TestBackgroundMusic
     private static FMOD.Studio.EventInstance musicInstance;
     static TestBackgroundMusic()
     {
-        musicInstance = RuntimeManager.CreateInstance("event:/BackgroundMusic");
+        musicInstance = RuntimeManager.CreateInstance("event:/Track 1");
     }
 
     public static void Play()
@@ -16,13 +16,13 @@ public static class TestBackgroundMusic
     public static void PlayFront()
     {
         Debug.Log("Работаем!");
-        musicInstance.setParameterByName("AddFront", 1f);
+        musicInstance.setParameterByName("Parameter 1", 1f);
     }
 
     public static void StopFront()
     {
         Debug.Log("Не Работаетм (");
-        musicInstance.setParameterByName("AddFront", 0f);
+        musicInstance.setParameterByName("Parameter 1", 0f);
     }
 
 }
