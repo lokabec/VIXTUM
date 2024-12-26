@@ -8,5 +8,5 @@ public enum ActionType
     RangeAttack,
     Dash,
     Jump,
-
+    ComboAttack,
 }

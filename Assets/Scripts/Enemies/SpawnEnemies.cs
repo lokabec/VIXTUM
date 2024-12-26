@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
+    [SerializeField] private ScoreSystem scoreSystem;
     private Transform spawnPoint;
     private Coroutine spawn;
     [SerializeField] private GameObject[] Enemy;
@@ -11,6 +12,11 @@ public class SpawnEnemies : MonoBehaviour
     void Start()
     {
         spawnPoint = GetComponent<Transform>();
+        foreach(GameObject en in Enemy)
+        {
+            en.GetComponent<Enemy>().scoreSystem = scoreSystem;
+
+        }
     }
 
     // Update is called once per frame

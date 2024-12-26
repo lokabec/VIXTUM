@@ -17,7 +17,7 @@ public class MeleeAttack : Attack
         {
             foreach (Collider2D enemyCollider in hitEnimies)
             {
-                enemyCollider.GetComponent<Enemy>().TakeDamage();
+                enemyCollider.GetComponent<Enemy>().TakeDamage(actionType);
             }
         }
         

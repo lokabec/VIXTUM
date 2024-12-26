@@ -13,6 +13,7 @@ public class Enemy : Entity
     [SerializeField] protected LayerMask layer;
     [SerializeField] protected Transform target;
     [SerializeField] protected float speed = 10f;
+    public ScoreSystem scoreSystem;
     protected Rigidbody2D rb;
     protected EnemyMovement movement;
     protected DetectObjects detectObjects;
@@ -67,6 +68,22 @@ public class Enemy : Entity
 
             yield return new WaitForSeconds(1);
         }
+    }
+
+    public void TakeDamage(ActionType attackType)
+    {
+        Health--;
+        if (Health <= 0) Die(attackType);
+    }
+    protected void Die(ActionType attackType)
+    {
+        if (attackType == (ActionType)1 || attackType == 0)
+        {
+            Debug.Log("Убит обычной атакой");
+            scoreSystem.Score = 10;
+            scoreSystem.ComboMultiplire++;
+        }
+        Die();
     }
 
 }

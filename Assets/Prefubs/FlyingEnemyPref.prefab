@@ -249,6 +249,7 @@ MonoBehaviour:
     m_Bits: 576
   target: {fileID: 7366122863239784941, guid: 0b1006a78cb352642a40e6f06def19f0, type: 3}
   speed: 0.4
+  scoreSystem: {fileID: 6088181931352722976, guid: bbf8484b46c08e04a8e2229ac5123d81, type: 3}
   _diveSpeed: 5
   _returnSpeed: 4
   _diveDistanceThreshold: 0

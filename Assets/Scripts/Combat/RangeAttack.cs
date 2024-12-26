@@ -18,7 +18,7 @@ public class RangeAttack : Attack
 
         if (hitInfo.collider != null)
         {
-            hitInfo.collider.GetComponent<Enemy>().TakeDamage();
+            hitInfo.collider.GetComponent<Enemy>().TakeDamage(actionType);
         }
     }
     private void Update()
