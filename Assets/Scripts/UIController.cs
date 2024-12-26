@@ -26,8 +26,8 @@ public class UIController : MonoBehaviour
         playerHP.text = $"HP: {player.Health}";
         houseHP.text = $"House HP: {house.Health}";
         score.text = $"Score: {scoreSystem.Score:0000}";
-        combo.text = $"Combo: {scoreSystem.ComboMultiplire}";
-        if (scoreSystem.ComboMultiplire > 1)
+        combo.text = $"Combo: {scoreSystem.ComboCounter}, MLT: {scoreSystem.ComboMultiplire}";
+        if (scoreSystem.ComboCounter > 0)
         {
             combo.enabled = true;
         }

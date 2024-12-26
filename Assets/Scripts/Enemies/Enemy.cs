@@ -81,7 +81,7 @@ public class Enemy : Entity
         {
             Debug.Log("Убит обычной атакой");
             scoreSystem.Score = 10;
-            scoreSystem.ComboMultiplire++;
+            scoreSystem.ComboCounter++;
         }
         Die();
     }

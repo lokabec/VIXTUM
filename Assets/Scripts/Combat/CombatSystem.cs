@@ -16,7 +16,9 @@ public class CombatSystem : MonoBehaviour
     [SerializeField] private ComboSystem _comboSystem;
     private int _score;
     [SerializeField] private Hero _hero;
-    
+
+    private Coroutine _coroutine;// сдюкхрэ йнцдю асдср мнплюкэмше юмхлюжхх
+
     private void Update()
     {
         if (Input.anyKeyDown)
@@ -29,6 +31,14 @@ public class CombatSystem : MonoBehaviour
                     switch (key)
                     {
                         case KeyCode.Mouse0:
+                            // сдюкхрэ йнцдю асдср мнплюкэмше юмхлюжхх
+                            if (_coroutine != null)
+                            {
+                                StopCoroutine(_coroutine);
+                            }
+                           _coroutine = StartCoroutine(nameof(ShowSword));
+                            // сдюкхрэ йнцдю асдср мнплюкэмше юмхлюжхх
+
                             ExecuteAttack(_meleeAttack);
                             break;
                         case KeyCode.Mouse1:
@@ -57,6 +67,17 @@ public class CombatSystem : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_meleeAttack.attackPoint.transform.position, _meleeAttack.range);
+    }
+
+    /// <summary>
+    /// сдюкхрэ йнцдю асдср мнплюкэмше юмхлюжхх
+    /// </summary>
+    /// <returns></returns>
+   private IEnumerator ShowSword()
+    {
+        _hero.GetComponentInChildren<Transform>().Find("Sprite").GetComponentInChildren<Transform>().Find("anim_1").gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+        _hero.GetComponentInChildren<Transform>().Find("Sprite").GetComponentInChildren<Transform>().Find("anim_1").gameObject.SetActive(false);
     }
 }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RangeAttack : Attack
 {
+
     Vector2 origin;
     Vector2 direction;
     private void Start()
