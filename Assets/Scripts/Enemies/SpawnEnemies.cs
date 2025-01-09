@@ -36,7 +36,6 @@ public class SpawnEnemies : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(spawnTime);
             if (scoreSystem.Score < 500)
             {
                 Instantiate(Enemy[Random.Range(0, Enemy.Count())], new Vector3(spawnPoint.position.x, spawnPoint.position.y, 0f), Quaternion.identity);
@@ -52,6 +51,8 @@ public class SpawnEnemies : MonoBehaviour
                 Instantiate(Enemy[Random.Range(0, Enemy.Count())], new Vector3(spawnPoint.position.x, spawnPoint.position.y, 0f), Quaternion.identity);
                 Instantiate(Enemy[Random.Range(0, Enemy.Count())], new Vector3(spawnPoint.position.x, spawnPoint.position.y, 0f), Quaternion.identity);
             }
+
+            yield return new WaitForSeconds(spawnTime);
         }
         
 
