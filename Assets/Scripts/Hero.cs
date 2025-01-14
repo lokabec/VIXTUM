@@ -7,10 +7,10 @@ using Unity.Cinemachine;
 
 public class Hero : Entity
 {
-    [SerializeField] private float _speed = 10f;
-    [SerializeField] private float _jumpForce = 300f;
-    [SerializeField] private float _dashForce = 25f;
-    [SerializeField] private float _dashDuration = 0.2f;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _dashForce;
+    [SerializeField] private float _dashDuration;
 
     private Rigidbody2D _rb;
     private Movement _movement;
@@ -24,7 +24,7 @@ public class Hero : Entity
         _movement = new Movement(_speed, _rb);
         _jump = new Jump(_jumpForce, _rb);
         _dash = new Dash(_dashForce, _dashDuration , _rb);
-        Health = 25;
+       
     }
 
     [Obsolete]

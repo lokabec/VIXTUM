@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class Entity : MonoBehaviour
 {
-    public int Health = 100;
+    public int Health;
     
     public void TakeDamage()
     {

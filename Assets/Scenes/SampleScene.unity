@@ -324,7 +324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.011000001, y: 0.93100005}
   m_AnchorMax: {x: 0.19164215, y: 0.9763852}
-  m_AnchoredPosition: {x: 2.9997559, y: 1.1600342}
+  m_AnchoredPosition: {x: 2.9996338, y: 1.1600342}
   m_SizeDelta: {x: 2, y: 1.6800003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114434845
@@ -460,7 +460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.011000001, y: 0.67588055}
   m_AnchorMax: {x: 0.19822222, y: 0.84470654}
-  m_AnchoredPosition: {x: -3.5, y: 0.19000244}
+  m_AnchoredPosition: {x: -3.499878, y: 0.19000244}
   m_SizeDelta: {x: -7, y: -7.209999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &256687231
@@ -759,6 +759,7 @@ GameObject:
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -891,6 +892,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473d1d717eae79147ac2397fbafe31db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aaf8166575919c4c8f62c687fa0a8b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveDuration: 60
+  chillDuration: 20
 --- !u!1 &561426549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1234,7 +1249,7 @@ Transform:
   m_GameObject: {fileID: 792358682}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000000834465, y: 1.0000002, z: -10}
+  m_LocalPosition: {x: 0.0000009536743, y: 1.0000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2375,7 +2390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c82f34060657eef44ad652b1f2cb3c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 50
   _speed: 10
   _jumpForce: 18
   _dashForce: 50
@@ -2526,6 +2541,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2434623098315062211, guid: 0b1006a78cb352642a40e6f06def19f0, type: 3}
+      propertyPath: Health
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 4330492721043346240, guid: 0b1006a78cb352642a40e6f06def19f0, type: 3}
       propertyPath: m_Layer
       value: 9

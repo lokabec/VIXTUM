@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
@@ -19,14 +20,24 @@ public class SpawnEnemies : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            spawn = StartCoroutine(nameof(SpawnTimer));
-        }
-        if (spawn != null && Input.GetKeyDown(KeyCode.T))
+        WaveSystem.StartWave += StartSpawn;
+        WaveSystem.StopWave += StopSpawn;
+    }
+    private void OnDisable()
+    {
+        WaveSystem.StopWave -= StopSpawn;
+        WaveSystem.StartWave -= StartSpawn;
+    }
+
+    private void StartSpawn()
+    {
+        spawn = StartCoroutine(nameof(SpawnTimer));
+    }
+    private void StopSpawn()
+    {
+        if (spawn != null)
         {
             StopCoroutine(spawn);
         }
