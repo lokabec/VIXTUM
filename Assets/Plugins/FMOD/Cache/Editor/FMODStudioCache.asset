@@ -22,7 +22,7 @@ MonoBehaviour:
   - {fileID: 7683515919579237347}
   StringsBanks:
   - {fileID: 6342369202807966460}
-  cacheTime: 638696400407827424
+  cacheTime: 638726665205624144
   cacheVersion: 131621
 --- !u!114 &2929334905638752579
 MonoBehaviour:
@@ -91,7 +91,7 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.strings.bank
   Name: Desktop/Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638696400407827424
+  lastModified: 638726665205624144
   FileSizes:
   - Name: 
     Value: 810
@@ -111,6 +111,6 @@ MonoBehaviour:
   Path: Assets/Sounds/Desktop/Master.bank
   Name: Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 638696400407807429
+  lastModified: 638726665205614137
   FileSizes: []
   Exists: 1
