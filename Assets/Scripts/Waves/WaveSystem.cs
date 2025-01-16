@@ -21,10 +21,10 @@ public class WaveSystem : MonoBehaviour
         {
 
             yield return new WaitForSeconds(chillDuration);
-            StartWave.Invoke();
+            //StartWave.Invoke();
             waveCount++;
             yield return new WaitForSeconds(waveDuration);
-            StopWave.Invoke();
+            //StopWave.Invoke();
         }
 
 
